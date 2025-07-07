@@ -28,6 +28,14 @@ export const FoodCard = ({
     price: 1200,
     image: "",
     ingredients: "ingredients ingredients",
+    createdAt: "",
+    updatedAt: "",
+    category: {
+      _id: "",
+      categoryName: "",
+      createdAt: "",
+      updatedAt: "",
+    },
   };
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -37,8 +45,7 @@ export const FoodCard = ({
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
-    console.log(event);
+  const handleAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
     setShowAlert(true);
   };
 

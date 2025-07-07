@@ -11,12 +11,40 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { toast } from "sonner";
+import { database } from "@/lib/utils/database";
 
 export const AddCategoryModal = () => {
   const [categoryName, setCategoryName] = useState<string>("");
 
   const createCategoryName = async () => {
-    setCategoryName("");
+    try {
+      // const response = await fetch("http://localhost:4202/category", {
+      //   method: "POST",
+      //   body: JSON.stringify({ categoryName: categoryName }),
+      //   headers: {
+      //     "Content-type": "application/json; charset=UTF-8",
+      //   },
+      // });
+
+      const response = await database("category", "POST", {
+        categoryName: categoryName,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create category");
+      }
+
+      const category = await response.json();
+
+      setCategoryName("");
+
+      toast.success(
+        `Category ${category.foodCategory.categoryName} created successfully`
+      );
+    } catch (error) {
+      toast.error(`Failed to create category ${error}`);
+    }
   };
 
   return (
@@ -45,7 +73,7 @@ export const AddCategoryModal = () => {
           </Label>
           <div>
             <Input
-              id="name"
+              id="categoryName"
               placeholder="Type category name..."
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}

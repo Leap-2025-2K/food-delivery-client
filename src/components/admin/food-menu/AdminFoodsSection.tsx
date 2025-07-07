@@ -1,9 +1,10 @@
 "use client";
 
-import { foodWithCategories } from "@/app/(main)/_components/food-with-category/FoodsWithCategories";
+import { useEffect, useState } from "react";
 import { AddFoodModal } from "./AddFoodModal";
 import { AdminFoodCard } from "./AdminFoodCard";
 import { AdminFoodSkeleton } from "./AdminFoodSkeleton";
+import { database } from "@/lib/utils/database";
 
 export type FoodCategory = {
   _id: string;
@@ -21,13 +22,31 @@ export type FoodCategory = {
 };
 
 export const AdminFoodsSection = () => {
-  if (!foodWithCategories) return null;
+  const [foods, setFoods] = useState<FoodCategory[]>([]);
 
-  if (!foodWithCategories.length) return <AdminFoodSkeleton />;
+  useEffect(() => {
+    const fetchFoods = async () => {
+      const response = await database(
+        "food/getFoodWithCategories",
+        "GET",
+        null
+      );
+
+      const foodWithCategories = await response.json();
+
+      setFoods(foodWithCategories.data);
+    };
+
+    fetchFoods();
+  }, []);
+
+  if (!foods) return null;
+
+  if (!foods.length) return <AdminFoodSkeleton />;
 
   return (
     <div className="flex flex-col gap-6">
-      {foodWithCategories.map((category, index) => (
+      {foods.map((category, index) => (
         <div
           key={index}
           className="flex flex-col gap-4 p-6 bg-background rounded-xl"

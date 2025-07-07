@@ -7,6 +7,7 @@ export type CategoryWithCount = {
   categoryName: string;
   count: number;
 };
+
 const categories = [
   {
     categoryName: "categoryName1",
