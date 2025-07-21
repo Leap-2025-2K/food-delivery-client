@@ -30,7 +30,7 @@ export const FoodDetailModal = ({
 
   const foodCart = useContext(FoodCartContext);
 
-  const { setFoodCart } = foodCart;
+  const { addToCart } = foodCart;
 
   const { foodName, image, ingredients, price } = food;
 
@@ -43,26 +43,24 @@ export const FoodDetailModal = ({
   };
 
   const handleAddToCart = () => {
-    setFoodCart([
-      {
-        food: {
-          foodName: foodName,
-          price: price,
-          image: image,
-          ingredients: ingredients,
+    addToCart({
+      food: {
+        foodName: foodName,
+        price: price,
+        image: image,
+        ingredients: ingredients,
+        _id: "",
+        category: {
           _id: "",
-          category: {
-            _id: "",
-            categoryName: "",
-            createdAt: "",
-            updatedAt: "",
-          },
+          categoryName: "",
           createdAt: "",
           updatedAt: "",
         },
-        quantity: quantity,
+        createdAt: "",
+        updatedAt: "",
       },
-    ]);
+      quantity: quantity,
+    });
     onToggleModal();
   };
 

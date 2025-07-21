@@ -1,11 +1,15 @@
 "use client";
+import { Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { HeaderLogo } from "./header/HeaderLogo";
 import { OrderSheet } from "./order-sheet";
 import { OrderSheetSuccessDialog } from "./order-sheet/OrderSheetSuccessDialog";
 import { UserToolbar } from "./header/UserToolbar";
+import { useTheme } from "@/providers/ThemeContext";
 
 export const Header = () => {
+  const { theme, changeTheme } = useTheme();
+
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -41,6 +45,9 @@ export const Header = () => {
       />
 
       <OrderSheetSuccessDialog open={modalOpen} closeModal={closeModal} />
+      <div className="flex gap-2 mx-auto w-fit my-4" onClick={changeTheme}>
+        {theme === "dark" ? <Moon color="white" /> : <Sun color="white" />}
+      </div>
     </header>
   );
 };

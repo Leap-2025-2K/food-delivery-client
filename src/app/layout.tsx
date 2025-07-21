@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import FoodCartContextProvider from "../providers/FoodCart";
+import { ThemeProvider } from "@/providers/ThemeContext";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -24,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${interFont.variable} antialiased`}>
         <FoodCartContextProvider>
-          <main>{children}</main>
+          <ThemeProvider>
+            <main>{children}</main>
+          </ThemeProvider>
         </FoodCartContextProvider>
         <Toaster />
       </body>

@@ -1,11 +1,14 @@
 "use client";
 
 import { FoodType } from "@/constants/food";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, useState } from "react";
+
+type FoodWithQuantity = { food: FoodType; quantity: number };
 
 type FoodCartContextType = {
-  foodCart: { food: FoodType; quantity: number }[];
-  setFoodCart: Dispatch<SetStateAction<{ food: FoodType; quantity: number }[]>>;
+  foodCart: FoodWithQuantity[];
+  addToCart: (_food: FoodWithQuantity) => void;
+  removeFromCart: (_foodId: string) => void;
 };
 
 export const FoodCartContext = createContext<FoodCartContextType>(
@@ -17,12 +20,20 @@ export default function FoodCartContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [foodCart, setFoodCart] = useState<
-    { food: FoodType; quantity: number }[]
-  >([]);
+  const [foodCart, setFoodCart] = useState<FoodWithQuantity[]>([]);
+
+  const addToCart = (food: FoodWithQuantity) => {
+    setFoodCart([...foodCart, food]);
+  };
+
+  const removeFromCart = (foodId: string) => {
+    // setFoodCart();
+  };
 
   return (
-    <FoodCartContext.Provider value={{ foodCart, setFoodCart }}>
+    <FoodCartContext.Provider
+      value={{ foodCart, addToCart, removeFromCart: () => {} }}
+    >
       {children}
     </FoodCartContext.Provider>
   );
