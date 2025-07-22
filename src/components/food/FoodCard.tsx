@@ -7,37 +7,12 @@ import { MouseEventHandler, useState } from "react";
 import { Button } from "../ui/button";
 import { AddToCartAlert } from "./AddToCartAlert";
 import { FoodDetailModal } from "./FoodDetailModal";
+import { FoodType } from "@/constants/food";
 
-type FoodCardProps = {
-  foodName: string;
-  price: number;
-  ingredients: string;
-  image: string;
-  _id: string;
-};
+type FoodCardProps = FoodType;
 
-export const FoodCard = ({
-  foodName,
-
-  ingredients,
-  image,
-}: FoodCardProps) => {
-  const food = {
-    _id: "1",
-    foodName: "foodName",
-    price: 1200,
-    image: "",
-    ingredients: "ingredients ingredients",
-    createdAt: "",
-    updatedAt: "",
-    category: {
-      _id: "",
-      categoryName: "",
-      createdAt: "",
-      updatedAt: "",
-    },
-  };
-
+export const FoodCard = (props: FoodCardProps) => {
+  const { foodName, ingredients, image } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
@@ -80,7 +55,7 @@ export const FoodCard = ({
         </Card>
       </div>
       <FoodDetailModal
-        food={food}
+        food={props}
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
       />

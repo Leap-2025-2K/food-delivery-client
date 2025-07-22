@@ -6,7 +6,6 @@ export type FoodType = {
   ingredients: string;
   createdAt: string;
   updatedAt: string;
-  category: CategoryType;
 };
 
 export type CategoryType = {
@@ -14,4 +13,10 @@ export type CategoryType = {
   categoryName: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type FoodsWithCategory = {
+  _id: string;
+  categoryName: string;
+  foods: FoodType[];
 };

@@ -1,18 +1,19 @@
 "use client";
 
 import { FoodCard } from "@/components/food";
+import { FoodsWithCategory } from "@/constants/food";
 
-export const foodWithCategories = [
+export const foodWithCategories: FoodsWithCategory[] = [
   {
     _id: "1",
-    categoryName: "categoryName1",
-    count: 1,
+    categoryName: "Mongol",
     foods: [
       {
         _id: "1",
-        foodName: "foodName1",
+        foodName: "Tsuivan",
         price: 1200,
-        image: "",
+        image:
+          "https://storage.googleapis.com/bk-delivery/images/zyMTPi7P9YSIgSUDpQnuyxHopoygEmL95EA6v5Mc.png",
         ingredients: "ingredients ingredients ingredients",
         createdAt: "string",
         updatedAt: "",
@@ -21,19 +22,19 @@ export const foodWithCategories = [
   },
   {
     _id: "2",
-    categoryName: "categoryName2",
-    count: 2,
     foods: [
       {
         _id: "2",
-        foodName: "foodName2",
+        foodName: "Lavsha",
         price: 12001,
-        image: "",
+        image:
+          "https://storage.googleapis.com/bk-delivery/images/zyMTPi7P9YSIgSUDpQnuyxHopoygEmL95EA6v5Mc.png",
         ingredients: "ingredients ingredients ingredients",
         createdAt: "string",
         updatedAt: "",
       },
     ],
+    categoryName: "",
   },
 ];
 
@@ -55,13 +56,7 @@ export const FoodsWithCategories = () => {
             {category?.foods.map((food) => {
               return (
                 <div key={food?._id}>
-                  <FoodCard
-                    foodName={food?.foodName}
-                    price={food?.price}
-                    image={food?.image}
-                    ingredients={food?.ingredients}
-                    _id={food?._id}
-                  />
+                  <FoodCard {...food} />
                 </div>
               );
             })}
