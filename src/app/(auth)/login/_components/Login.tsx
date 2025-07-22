@@ -21,8 +21,8 @@ export const Login = () => {
       <CardContent className="p-0">
         <form className="flex flex-col gap-6">
           <div className="grid items-start w-full gap-4">
-            <FormInput />
-            <FormInput />
+            <FormInput name="email" placeholder="Email" />
+            <FormInput name={""} placeholder={""} />
             <Button variant="link" className="p-0 underline w-fit">
               Forgot password ?
             </Button>

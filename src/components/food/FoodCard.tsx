@@ -1,18 +1,17 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { FoodType } from "@/constants/food";
 import { Plus } from "lucide-react";
-import Image from "next/legacy/image";
 import { MouseEventHandler, useState } from "react";
 import { Button } from "../ui/button";
 import { AddToCartAlert } from "./AddToCartAlert";
 import { FoodDetailModal } from "./FoodDetailModal";
-import { FoodType } from "@/constants/food";
 
 type FoodCardProps = FoodType;
 
 export const FoodCard = (props: FoodCardProps) => {
-  const { foodName, ingredients, image } = props;
+  const { foodName, ingredients } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 

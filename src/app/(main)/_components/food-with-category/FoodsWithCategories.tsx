@@ -1,7 +1,9 @@
 "use client";
 
 import { FoodCard } from "@/components/food";
-import { FoodsWithCategory } from "@/constants/food";
+import { FoodsWithCategory, FoodType } from "@/constants/food";
+import { database } from "@/lib/utils/database";
+import { useEffect, useState } from "react";
 
 export const foodWithCategories: FoodsWithCategory[] = [
   {
@@ -38,10 +40,34 @@ export const foodWithCategories: FoodsWithCategory[] = [
   },
 ];
 
-export const FoodsWithCategories = () => {
-  if (!foodWithCategories?.length) return null;
+type FoodsWithCategoriesType = {
+  categoryName: string;
+  count: number;
+  foods: FoodType[];
+};
 
-  const nonEmptyCategories = foodWithCategories.filter(
+export const FoodsWithCategories = () => {
+  const [foods, setFoods] = useState<FoodsWithCategoriesType[]>();
+
+  useEffect(() => {
+    const fetchFoods = async () => {
+      const response = await database(
+        "food/getFoodWithCategories",
+        "GET",
+        null
+      );
+
+      const foodWithCategories = await response.json();
+      console.log(foodWithCategories.data);
+      setFoods(foodWithCategories.data);
+    };
+
+    fetchFoods();
+  }, []);
+
+  if (!foods?.length) return null;
+
+  const nonEmptyCategories = foods.filter(
     (category) => category?.foods?.length > 0
   );
 

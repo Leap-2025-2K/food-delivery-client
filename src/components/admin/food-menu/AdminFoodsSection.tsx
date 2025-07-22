@@ -33,7 +33,7 @@ export const AdminFoodsSection = () => {
       );
 
       const foodWithCategories = await response.json();
-
+      console.log(foodWithCategories.data);
       setFoods(foodWithCategories.data);
     };
 

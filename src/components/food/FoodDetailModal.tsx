@@ -52,6 +52,7 @@ export const FoodDetailModal = ({
         ingredients: ingredients,
       },
       quantity: quantity,
+      totalPrice: 0,
     });
     onToggleModal();
   };

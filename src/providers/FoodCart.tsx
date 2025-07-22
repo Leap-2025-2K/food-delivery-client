@@ -1,7 +1,7 @@
 "use client";
 
 import { FoodType } from "@/constants/food";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type FoodWithQuantity = {
   food: FoodType;
@@ -27,6 +27,15 @@ export default function FoodCartContextProvider({
   children: React.ReactNode;
 }) {
   const [foodCart, setFoodCart] = useState<FoodWithQuantity[]>([]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("foodCart");
+    if (cartItems) setFoodCart(JSON.parse(cartItems) || []);
+  }, []);
+
+  useEffect(() => {
+    if (foodCart) localStorage.setItem("foodCart", JSON.stringify(foodCart));
+  }, [foodCart]);
 
   const addToCart = (newFood: FoodWithQuantity) => {
     const existingFood = foodCart.find(
