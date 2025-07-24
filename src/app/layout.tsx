@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import FoodCartContextProvider from "../providers/FoodCart";
 import { ThemeProvider } from "@/providers/ThemeContext";
+import UserContextProvider from "@/providers/UserProvider";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -24,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${interFont.variable} antialiased`}>
-        <FoodCartContextProvider>
-          <ThemeProvider>
-            <main>{children}</main>
-          </ThemeProvider>
-        </FoodCartContextProvider>
+        <UserContextProvider>
+          <FoodCartContextProvider>
+            <ThemeProvider>
+              <main>{children}</main>
+            </ThemeProvider>
+          </FoodCartContextProvider>
+        </UserContextProvider>
         <Toaster />
       </body>
     </html>
